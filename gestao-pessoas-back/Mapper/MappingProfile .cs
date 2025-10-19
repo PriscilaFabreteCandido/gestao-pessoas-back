@@ -17,8 +17,7 @@ namespace gestao_pessoas_back.Mapper
             CreateMap<CriarUsuarioRequest, UsuarioModel>()
                 .ForMember(dest => dest.SenhaHash, opt => opt.Ignore());
 
-            CreateMap<UsuarioModel, UsuarioResponse>().
-                ForMember(dest => dest.SenhaHash, opt => opt.Ignore()); ;
+            CreateMap<UsuarioModel, UsuarioResponse>();
         } 
     }
 }

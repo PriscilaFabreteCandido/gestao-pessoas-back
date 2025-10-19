@@ -33,6 +33,7 @@ namespace gestao_pessoas_back.Services
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
 
+               
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, usuario.Email),
@@ -47,17 +48,23 @@ namespace gestao_pessoas_back.Services
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.UtcNow.AddSeconds(_jwtSettings.ExpirationSeconds), // Agora usando segundos
+                    Expires = DateTime.UtcNow.AddSeconds(_jwtSettings.ExpirationSeconds),
                     Issuer = _jwtSettings.Issuer,
                     Audience = _jwtSettings.Audience,
+                   
                     SigningCredentials = new SigningCredentials(
-                        new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                        new SymmetricSecurityKey(key),
+                        SecurityAlgorithms.HmacSha256) 
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
+
+               
                 var tokenString = tokenHandler.WriteToken(token);
 
                 _logger.LogInformation("Token JWT gerado com sucesso para o usuário: {Email} com role: {Role}", usuario.Email, usuario.Role);
+                _logger.LogDebug("Tamanho da chave: {KeySize} bits", key.Length * 8);
+
                 return tokenString;
             }
             catch (Exception ex)
