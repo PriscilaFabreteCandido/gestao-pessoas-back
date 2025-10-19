@@ -60,7 +60,7 @@ namespace gestao_pessoas_back.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao autenticar usuário: {Email}", request.Email);
-                throw;
+                throw new Exception("Erro interno");
             }
         }
 

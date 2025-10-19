@@ -1,20 +1,18 @@
 ﻿using gestao_pessoas_back.Requests.Usuario;
-using gestao_pessoas_back.Services;
-using Microsoft.AspNetCore.Authorization;
+using gestao_pessoas_back.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gestao_pessoas_back.Controllers
 {
     [ApiController]
-    [Route("v1/usuarios")]
-    [Authorize]
+    [Route("v1/[controller]")]
     public class UsuariosController : ControllerBase
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly IUsuarioService _usuarioService;
         private readonly ILogger<UsuariosController> _logger;
 
         public UsuariosController(
-            UsuarioService usuarioService,
+            IUsuarioService usuarioService,
             ILogger<UsuariosController> logger)
         {
             _usuarioService = usuarioService;

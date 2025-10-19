@@ -1,4 +1,5 @@
 ﻿using gestao_pessoas_back.Requests.Usuario;
+using gestao_pessoas_back.Service.Interfaces;
 using gestao_pessoas_back.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,11 @@ namespace gestao_pessoas_back.Controllers
     [Route("v1/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly IUsuarioService _usuarioService;
         private readonly ILogger<AuthController> _logger;
 
         public AuthController(
-            UsuarioService usuarioService,
+            IUsuarioService usuarioService,
             ILogger<AuthController> logger)
         {
             _usuarioService = usuarioService;
