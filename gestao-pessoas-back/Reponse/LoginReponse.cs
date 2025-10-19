@@ -1,7 +1,10 @@
 ﻿namespace gestao_pessoas_back.Reponse
 {
-    public class LoginReponse
+    public class LoginResponse
     {
-        public string Token { get; set; }
+        public string tokenType {  get; set; }
+        public string AccessToken { get; set; }
+
+        public int ExpiresIn { get; set; }
     }
 }

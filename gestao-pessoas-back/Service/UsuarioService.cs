@@ -1,78 +1,132 @@
-﻿// Services/UsuarioService.cs
+﻿using AutoMapper;
+using gestao_pessoas_back.Exceptions;
+using gestao_pessoas_back.Model;
+using gestao_pessoas_back.Reponse;
+using gestao_pessoas_back.Repository.Interfaces;
 using gestao_pessoas_back.Requests.Usuario;
 using gestao_pessoas_back.Service.Interfaces;
+using gestao_pessoas_back.Utils;
 
-namespace gestao_pessoas_back.Service
+namespace gestao_pessoas_back.Services
 {
     public class UsuarioService : IUsuarioService
     {
-        // Aqui você injetaria dependências como:
-        // private readonly IUserRepository _userRepository;
-        // private readonly IEmailService _emailService;
-        // private readonly IPasswordHasher _passwordHasher;
-        // private readonly ITokenService _tokenService;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly JwtService _jwtService;
+        private readonly ILogger<UsuarioService> _logger;
+        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UsuarioService(/* dependências */)
+        public UsuarioService(
+            IUsuarioRepository usuarioRepository,
+            JwtService jwtService,
+            ILogger<UsuarioService> logger,
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor)
         {
-            // Inicializar dependências
+            _usuarioRepository = usuarioRepository;
+            _jwtService = jwtService;
+            _logger = logger;
+            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task AlterarSenha(Guid userId, AlterarSenhaRequest request)
+        public async Task<LoginResponse?> AutenticarUsuario(LoginRequest request)
         {
-            // Implementar lógica de alteração de senha
-            // 1. Buscar usuário pelo ID
-            // 2. Verificar se a senha atual está correta
-            // 3. Validar se nova senha e confirmação são iguais
-            // 4. Atualizar senha
-            // 5. Salvar no banco
+            try
+            {
+                var usuario = await _usuarioRepository.ObterPorEmailAsync(request.Email);
 
-            await Task.CompletedTask;
+                if (usuario == null)
+                {
+                    _logger.LogWarning("Tentativa de login com email não encontrado: {Email}", request.Email);
+                    throw new InvalidOperationException("Não existe um usuário cadastrado com este email.");
+                }
+
+                if (!PasswordHasher.Verify(request.Senha, usuario.SenhaHash))
+                    throw new BusinessException("Credenciais inválidas.");
+
+                var token = _jwtService.GerarToken(usuario);
+
+                _logger.LogInformation("Login realizado com sucesso para o usuário: {Email} com role: {Role}", usuario.Email, usuario.Role);
+
+                return new LoginResponse
+                {
+                    tokenType = "Bearer",
+                    AccessToken = token,
+                    ExpiresIn = _jwtService.GetExpiration() 
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao autenticar usuário: {Email}", request.Email);
+                throw;
+            }
         }
 
-        public async Task ResetarSenhaPorLinkRequest(EsqueceuSenhaRequest request)
+        public async Task<UsuarioResponse> CriarUsuario(CriarUsuarioRequest request)
         {
-            // Implementar lógica de solicitação de reset por link
-            // 1. Buscar usuário pelo email
-            // 2. Gerar token de reset
-            // 3. Salvar token e expiração no banco
-            // 4. Enviar email com link de reset
+            try
+            {
+                if (await _usuarioRepository.VerificarEmailExisteAsync(request.Email))
+                {
+                    throw new InvalidOperationException("Já existe um usuário cadastrado com este email.");
+                }
 
-            await Task.CompletedTask;
+                var usuario = _mapper.Map<UsuarioModel>(request);
+                usuario.SenhaHash = PasswordHasher.Hash(request.Senha);
+
+                var usuarioCriado = await _usuarioRepository.CriarAsync(usuario);
+                var usuarioResponse = _mapper.Map<UsuarioResponse>(usuarioCriado);
+
+                _logger.LogInformation("Usuário criado com sucesso: {Email} com role: {Role}", usuarioCriado.Email, usuarioCriado.Role);
+                return usuarioResponse;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao criar usuário: {Email}", request.Email);
+                throw;
+            }
         }
 
-        public async Task ResetarSenhaPorLink(ResetSenhaPorLinkRequest request)
+        public async Task<UsuarioResponse?> ObterInformacoesUsuario()
         {
-            // Implementar lógica de reset por link
-            // 1. Validar token
-            // 2. Verificar se não expirou
-            // 3. Buscar usuário associado ao token
-            // 4. Atualizar senha
-            // 5. Invalidar token usado
+            try
+            {
+                var httpContext = _httpContextAccessor.HttpContext;
+                if (httpContext == null)
+                {
+                    _logger.LogWarning("HttpContext não disponível");
+                    return null;
+                }
 
-            await Task.CompletedTask;
+                var userId = _jwtService.ObterUserIdDoContexto(httpContext);
+                if (!userId.HasValue)
+                {
+                    _logger.LogWarning("Não foi possível obter o ID do usuário do token");
+                    return null;
+                }
+
+                var usuario = await _usuarioRepository.ObterPorIdAsync(userId.Value);
+                if (usuario == null)
+                {
+                    _logger.LogWarning("Usuário não encontrado para o ID: {UserId}", userId);
+                    return null;
+                }
+
+                var usuarioResponse = _mapper.Map<UsuarioResponse>(usuario);
+                _logger.LogInformation("Informações do usuário obtidas com sucesso: {Email}", usuario.Email);
+                return usuarioResponse;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao obter informações do usuário");
+                throw;
+            }
         }
 
-        public async Task ResetarSenhaPorCodigoRequest(EsqueceuSenhaRequest request)
-        {
-            // Implementar lógica de solicitação de reset por código
-            // 1. Buscar usuário pelo email
-            // 2. Gerar código numérico (ex: 6 dígitos)
-            // 3. Salvar código e expiração no banco
-            // 4. Enviar email com código
+      
 
-            await Task.CompletedTask;
-        }
-
-        public async Task ResetarSenhaPorCodigo(ResetSenhaPorCodigoRequest request)
-        {
-            // Implementar lógica de reset por código
-            // 1. Validar código
-            // 2. Verificar se não expirou
-            // 3. Buscar usuário associado ao código
-            // 4. Atualizar senha
-            // 5. Invalidar código usado
-
-            await Task.CompletedTask;
-        }
+       
     }
 }

@@ -1,16 +1,13 @@
 ﻿using gestao_pessoas_back.Enum;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 
-namespace gestao_pessoas_back.Model
+namespace gestao_pessoas_back.Reponse
 {
-    public class UsuarioModel: IdentityUser
+    public class UsuarioResponse
     {
         public Guid Id { get; set; }
         public string NomeCompleto { get; set; }
         public string Email { get; set; }
         public string SenhaHash { get; set; }
         public UserRoleEnum Role { get; set; }
-
     }
 }
