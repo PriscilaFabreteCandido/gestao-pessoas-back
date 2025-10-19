@@ -1339,11 +1339,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\priscila.fabrete\\git-projetos\\link-pagamento\\gestao-pessoas-back\\gestao-pessoas-back\\gestao-pessoas-back.csproj",
+      "projectUniqueName": "C:\\Users\\priscila.fabrete\\git-projetos\\projeto_pessoais\\gestao-pessoas-back\\gestao-pessoas-back\\gestao-pessoas-back.csproj",
       "projectName": "gestao-pessoas-back",
-      "projectPath": "C:\\Users\\priscila.fabrete\\git-projetos\\link-pagamento\\gestao-pessoas-back\\gestao-pessoas-back\\gestao-pessoas-back.csproj",
+      "projectPath": "C:\\Users\\priscila.fabrete\\git-projetos\\projeto_pessoais\\gestao-pessoas-back\\gestao-pessoas-back\\gestao-pessoas-back.csproj",
       "packagesPath": "C:\\Users\\priscila.fabrete\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\priscila.fabrete\\git-projetos\\link-pagamento\\gestao-pessoas-back\\gestao-pessoas-back\\obj\\",
+      "outputPath": "C:\\Users\\priscila.fabrete\\git-projetos\\projeto_pessoais\\gestao-pessoas-back\\gestao-pessoas-back\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\priscila.fabrete\\AppData\\Roaming\\NuGet\\NuGet.Config",

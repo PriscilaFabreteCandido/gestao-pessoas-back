@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d88tfGnNlPqUc2mt/XV2WvC4J108T332g6fEwJP2gLQcyLvuanwSjrgrbmzL1xwNKsCSKxfPg+gOD2/zu/jpEw==",
+  "dgSpecHash": "r7cTFWz2ofrq9XKoeWnHM9NxgYTqSggl4/wNSqECwDbkEUfBxMXW1ZeTzijWW6qBnT1SRYECLszTLRAwyD3Uog==",
   "success": true,
-  "projectFilePath": "C:\\Users\\priscila.fabrete\\git-projetos\\link-pagamento\\gestao-pessoas-back\\gestao-pessoas-back\\gestao-pessoas-back.csproj",
+  "projectFilePath": "C:\\Users\\priscila.fabrete\\git-projetos\\projeto_pessoais\\gestao-pessoas-back\\gestao-pessoas-back\\gestao-pessoas-back.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\priscila.fabrete\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\priscila.fabrete\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
