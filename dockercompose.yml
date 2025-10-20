@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    container_name: gestao-pessoas-api
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16
+    container_name: gestao-pessoas-db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
