@@ -21,18 +21,13 @@ namespace gestao_pessoas_back.Controllers
             _logger = logger;
         }
 
-       
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-           
             var token = await _usuarioService.AutenticarUsuario(request);
-
             return Ok(token);
-           
         }
-
 
         [HttpGet("user-info")]
         [Authorize]

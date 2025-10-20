@@ -21,7 +21,6 @@ namespace gestao_pessoas_back.Controllers
         [HttpPost("criar")]
         public async Task<IActionResult> CriarPessoa([FromBody] CriarPessoaRequest request)
         {
-            
             var pessoa = await _pessoaService.CriarPessoaAsync(request);
             return Ok(pessoa);
         }
@@ -35,8 +34,7 @@ namespace gestao_pessoas_back.Controllers
 
         [HttpDelete("excluir/{id}")]
         public async Task<IActionResult> ExcluirPessoa(Guid id)
-        {
-
+        { 
             var sucesso = await _pessoaService.ExcluirPessoaAsync(id);
             return Ok(new SuccessResponse("Excluído com sucesso."));
         }
@@ -51,16 +49,13 @@ namespace gestao_pessoas_back.Controllers
         [HttpGet("obter-todos")]
         public async Task<IActionResult> ObterTodasPessoas()
         {
-            
             var pessoas = await _pessoaService.ObterTodasPessoasAsync();
             return Ok(pessoas);
-            
         }
 
         [HttpGet("obter-por-cpf/{cpf}")]
         public async Task<IActionResult> ObterPessoaPorCpf(string cpf)
         {
-            
             var pessoa = await _pessoaService.ObterPessoaPorCpfAsync(cpf);
             return Ok(pessoa);
         }

@@ -27,7 +27,6 @@ namespace gestao_pessoas_back.Services
         {
             try
             {
-                // Validar unicidade do CPF
                 if (await _pessoaRepository.CpfExisteAsync(request.CPF))
                     throw new InvalidOperationException("Já existe uma pessoa cadastrada com este CPF");
 
@@ -55,8 +54,7 @@ namespace gestao_pessoas_back.Services
                 var pessoaExistente = await _pessoaRepository.ObterPorIdAsync(id);
                 if (pessoaExistente == null)
                     throw new KeyNotFoundException("Pessoa não encontrada");
-
-                // Validar unicidade do CPF (excluindo a própria pessoa)
+ 
                 if (await _pessoaRepository.CpfExisteAsync(request.CPF, id))
                     throw new InvalidOperationException("Já existe outra pessoa cadastrada com este CPF");
 

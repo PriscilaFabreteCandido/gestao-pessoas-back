@@ -17,7 +17,7 @@ namespace gestao_pessoas_back.Config
                     
                 });
 
-                // 🔐 Configuração da Autenticação JWT no Swagger
+                
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme.
@@ -47,7 +47,7 @@ namespace gestao_pessoas_back.Config
                     }
                 });
 
-                // Opcional: Incluir comentários XML da API
+                
                 var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 if (File.Exists(xmlPath))
@@ -55,7 +55,7 @@ namespace gestao_pessoas_back.Config
                     options.IncludeXmlComments(xmlPath);
                 }
 
-                // Opcional: Ordenar os endpoints
+                
                 options.OrderActionsBy(apiDesc => $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.HttpMethod}");
             });
         }

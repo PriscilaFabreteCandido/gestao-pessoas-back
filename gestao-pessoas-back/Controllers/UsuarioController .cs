@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestao_pessoas_back.Controllers
 {
     [ApiController]
-    
+
     [Route("v1/[controller]")]
     public class UsuariosController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace gestao_pessoas_back.Controllers
             _logger = logger;
         }
 
-        [HttpPost("/criar")]
+        [HttpPost("criar")]
         public async Task<IActionResult> Criar([FromBody] CriarUsuarioRequest request)
         {
              var usuarioAtualizado = await _usuarioService.CriarUsuario(request);

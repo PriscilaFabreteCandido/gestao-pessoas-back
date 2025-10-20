@@ -18,7 +18,6 @@ namespace gestao_pessoas_back.Services
             _jwtSettings = jwtSettings.Value;
             _logger = logger;
 
-            // Validações básicas
             if (string.IsNullOrEmpty(_jwtSettings.SecretKey))
                 throw new ArgumentNullException(nameof(_jwtSettings.SecretKey), "Chave secreta não configurada");
 
@@ -110,25 +109,19 @@ namespace gestao_pessoas_back.Services
             }
         }
 
-        // Método para obter o tempo de expiração em segundos (para o LoginResponse)
         public int GetExpirationSeconds()
         {
             return _jwtSettings.ExpirationSeconds;
         }
-
-        // Método para compatibilidade (mantém o nome que você tinha)
         public int GetExpiration()
         {
             return _jwtSettings.ExpirationSeconds;
         }
-
-        // Método para obter em minutos (se necessário para outros usos)
         public int GetExpirationMinutes()
         {
             return _jwtSettings.ExpirationSeconds / 60;
         }
 
-        // Restante dos métodos permanecem iguais...
         public Guid? ObterUserIdDoContexto(HttpContext context)
         {
             var userIdClaim = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value

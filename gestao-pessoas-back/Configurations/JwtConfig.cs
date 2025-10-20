@@ -9,18 +9,18 @@ namespace gestao_pessoas_back.Config
     {
         public static void AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            // Carregar configurações
+            
             var jwtSettings = new JwtSettings();
             configuration.GetSection("JwtSettings").Bind(jwtSettings);
 
-            // Validar configurações
+          
             if (string.IsNullOrEmpty(jwtSettings.SecretKey))
                 throw new ArgumentException("JwtSettings:SecretKey não configurado");
 
-            // Registrar JwtSettings no DI
+            
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
-            // Configurar autenticação JWT
+            
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -40,7 +40,7 @@ namespace gestao_pessoas_back.Config
                     ClockSkew = TimeSpan.Zero
                 };
 
-                // Opcional: Eventos para logging
+                
                 options.Events = new JwtBearerEvents
                 {
                     OnAuthenticationFailed = context =>
