@@ -66,6 +66,10 @@ namespace gestao_pessoas_back.Services
                 _logger.LogInformation("Pessoa atualizada com ID: {Id}", id);
                 return _mapper.Map<PessoaResponse>(resultado);
             }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception(ex.Message);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao atualizar pessoa com ID: {Id}", id);

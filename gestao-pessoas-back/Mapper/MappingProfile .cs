@@ -12,7 +12,7 @@ namespace gestao_pessoas_back.Mapper
         {
             CreateMap<CriarPessoaRequest, PessoaModel>();
             CreateMap<AtualizarPessoaRequest, PessoaModel>();
-            CreateMap<PessoaModel, PessoaResponse>();
+            CreateMap<PessoaModel, PessoaResponse>().ForMember(dest => dest.CPFFormatado, opt => opt.Ignore()); ;
 
             CreateMap<CriarUsuarioRequest, UsuarioModel>()
                 .ForMember(dest => dest.SenhaHash, opt => opt.Ignore());

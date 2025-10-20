@@ -18,5 +18,15 @@ namespace gestao_pessoas_back.Reponse
 
         public string CPF { get; set; }
 
+        public string CPFFormatado
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(CPF) || CPF.Length != 11)
+                    return CPF;
+
+                return $"{CPF.Substring(0, 3)}.{CPF.Substring(3, 3)}.{CPF.Substring(6, 3)}-{CPF.Substring(9, 2)}";
+            }
+        }
     }
 }
