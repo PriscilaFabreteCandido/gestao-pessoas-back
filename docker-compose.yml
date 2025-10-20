@@ -1,27 +1,36 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  api:
-    build: .
-    container_name: gestao-pessoas-api
-    ports:
-      - "5000:5000"
-    env_file:
-      - .env
-    restart: always
-    depends_on:
-      - db
-
   db:
-    image: postgres:16
+    image: postgres:15
     container_name: gestao-pessoas-db
     restart: always
-    env_file:
-      - .env
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 102030   # 🔒 defina uma senha forte
+      POSTGRES_DB: gestao_pessoas
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gestao-network
+
+  app:
+    build: .
+    container_name: gestao-pessoas-app
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=db;Database=gestao_pessoas;Username=postgres;Password=102030
+    ports:
+      - "5000:5000"
+    networks:
+      - gestao-network
 
 volumes:
-  pgdata:
+  postgres_data:
+
+networks:
+  gestao-network:
