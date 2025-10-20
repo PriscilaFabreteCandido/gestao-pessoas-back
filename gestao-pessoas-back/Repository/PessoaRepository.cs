@@ -41,6 +41,7 @@ namespace gestao_pessoas_back.Repository
 
         public async Task<PessoaModel> AtualizarAsync(PessoaModel pessoa)
         {
+            pessoa.DataAtualizacao = DateTime.UtcNow;
             _context.Pessoas.Update(pessoa);
             await _context.SaveChangesAsync();
             return pessoa;

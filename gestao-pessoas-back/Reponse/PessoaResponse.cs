@@ -2,7 +2,7 @@
 
 namespace gestao_pessoas_back.Reponse
 {
-    public class PessoaResponse
+    public class PessoaResponse: AuditoriaResponse
     {
         public Guid Id { get; set; }
 
