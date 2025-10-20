@@ -17,7 +17,7 @@ namespace gestao_pessoas_back.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    Sexo = table.Column<int>(type: "integer", nullable: true),
+                    Sexo = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Naturalidade = table.Column<string>(type: "text", nullable: false),

@@ -1,10 +1,12 @@
 ﻿using gestao_pessoas_back.Requests.Usuario;
 using gestao_pessoas_back.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gestao_pessoas_back.Controllers
 {
     [ApiController]
+    
     [Route("v1/[controller]")]
     public class UsuariosController : ControllerBase
     {

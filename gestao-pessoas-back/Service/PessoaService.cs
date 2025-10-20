@@ -40,7 +40,7 @@ namespace gestao_pessoas_back.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao criar pessoa");
-                throw;
+                throw new Exception("Erro ao criar pessoa");
             }
         }
 
@@ -65,7 +65,7 @@ namespace gestao_pessoas_back.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao atualizar pessoa com ID: {Id}", id);
-                throw;
+                throw new Exception("Erro ao atualizar pessoa");
             }
         }
 
@@ -85,7 +85,7 @@ namespace gestao_pessoas_back.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao excluir pessoa com ID: {Id}", id);
-                throw;
+                throw new Exception("Erro ao excluir pessoa");
             }
         }
 

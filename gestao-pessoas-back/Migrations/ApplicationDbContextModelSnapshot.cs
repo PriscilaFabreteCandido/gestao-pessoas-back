@@ -64,8 +64,9 @@ namespace gestao_pessoas_back.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Sexo")
-                        .HasColumnType("integer");
+                    b.Property<string>("Sexo")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

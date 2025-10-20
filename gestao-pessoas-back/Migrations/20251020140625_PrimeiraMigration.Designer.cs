@@ -12,7 +12,7 @@ using gestao_pessoas_back.Data;
 namespace gestao_pessoas_back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251019212734_PrimeiraMigration")]
+    [Migration("20251020140625_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -67,8 +67,9 @@ namespace gestao_pessoas_back.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Sexo")
-                        .HasColumnType("integer");
+                    b.Property<string>("Sexo")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

@@ -10,7 +10,9 @@ namespace gestao_pessoas_back.Model
 
         public string Nome { get; set; }
 
-        public SexoEnum? Sexo { get; set; }
+        [Required(ErrorMessage = "Sexo é obrigatório")]
+        [EnumDataType(typeof(SexoEnum), ErrorMessage = "Sexo deve ser M, F ou O")]
+        public SexoEnum Sexo { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }

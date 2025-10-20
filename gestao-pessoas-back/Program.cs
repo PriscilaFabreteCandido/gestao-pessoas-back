@@ -8,7 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
+
 builder.ConfigureSettings();
 builder.ConfigureServices();
 
@@ -19,6 +24,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddJwtConfiguration(builder.Configuration);
+builder.Services.AddSwaggerConfiguration(builder.Configuration);
 
 
 builder.ConfigureCors();
@@ -38,7 +44,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCorsConfiguration();
 app.MapControllers();
 
 app.Run();

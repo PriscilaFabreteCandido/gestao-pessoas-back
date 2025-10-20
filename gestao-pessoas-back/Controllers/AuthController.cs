@@ -29,7 +29,7 @@ namespace gestao_pessoas_back.Controllers
            
             var token = await _usuarioService.AutenticarUsuario(request);
 
-            return Ok(new { Token = token });
+            return Ok(token);
            
         }
 

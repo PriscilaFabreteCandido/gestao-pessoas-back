@@ -1,5 +1,7 @@
-﻿using gestao_pessoas_back.Validations;
+﻿using gestao_pessoas_back.Enum;
+using gestao_pessoas_back.Validations;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace gestao_pessoas_back.Requests.Pessoa
 {
@@ -8,9 +10,10 @@ namespace gestao_pessoas_back.Requests.Pessoa
         [Required(ErrorMessage = "O nome é obrigatório")]
         public string Nome { get; set; }
 
-        [StringLength(1, ErrorMessage = "Sexo deve ser M, F ou O")]
-        [RegularExpression(@"^[MFO]$", ErrorMessage = "Sexo deve ser M (Masculino), F (Feminino) ou O (Outro)")]
-        public string Sexo { get; set; }
+        [Required(ErrorMessage = "Sexo é obrigatório")]
+        [EnumDataType(typeof(SexoEnum), ErrorMessage = "Sexo deve ser M, F ou O")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public SexoEnum Sexo { get; set; }
 
         [EmailAddress(ErrorMessage = "E-mail em formato inválido")]
         public string Email { get; set; }
