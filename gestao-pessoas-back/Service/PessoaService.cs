@@ -37,10 +37,14 @@ namespace gestao_pessoas_back.Services
                 _logger.LogInformation("Pessoa criada com ID: {Id}", pessoaCriada.Id);
                 return _mapper.Map<PessoaResponse>(pessoaCriada);
             }
+            catch (InvalidOperationException ex)
+            {
+                throw new Exception(ex.Message);
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao criar pessoa");
-                throw new Exception("Erro ao criar pessoa");
+                throw new Exception($"Erro ao criar pessoa" );
             }
         }
 

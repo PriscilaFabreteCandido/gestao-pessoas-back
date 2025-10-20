@@ -49,15 +49,12 @@ namespace gestao_pessoas_back.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nacionalidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Naturalidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nome")
@@ -65,7 +62,6 @@ namespace gestao_pessoas_back.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Sexo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

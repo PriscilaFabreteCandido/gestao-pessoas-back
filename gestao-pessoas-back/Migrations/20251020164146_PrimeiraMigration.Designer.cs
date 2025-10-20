@@ -12,7 +12,7 @@ using gestao_pessoas_back.Data;
 namespace gestao_pessoas_back.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251020140625_PrimeiraMigration")]
+    [Migration("20251020164146_PrimeiraMigration")]
     partial class PrimeiraMigration
     {
         /// <inheritdoc />
@@ -52,15 +52,12 @@ namespace gestao_pessoas_back.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nacionalidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Naturalidade")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Nome")
@@ -68,7 +65,6 @@ namespace gestao_pessoas_back.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Sexo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

@@ -10,21 +10,20 @@ namespace gestao_pessoas_back.Requests.Pessoa
         [Required(ErrorMessage = "O nome é obrigatório")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Sexo é obrigatório")]
+      
         [EnumDataType(typeof(SexoEnum), ErrorMessage = "Sexo deve ser M, F ou O")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public SexoEnum Sexo { get; set; }
+        public SexoEnum? Sexo { get; set; } = null;
 
         [EmailAddress(ErrorMessage = "E-mail em formato inválido")]
-        public string Email { get; set; }
+        public string? Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "A data de nascimento é obrigatória")]
-        [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
 
-        public string Naturalidade { get; set; }
+        public string? Naturalidade { get; set; } = string.Empty;
 
-        public string Nacionalidade { get; set; }
+        public string? Nacionalidade { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "O CPF é obrigatório")]
         [Cpf(ErrorMessage = "CPF inválido")]

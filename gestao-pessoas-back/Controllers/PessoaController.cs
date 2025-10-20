@@ -48,7 +48,7 @@ namespace gestao_pessoas_back.Controllers
             return Ok(pessoa);
         }
 
-        [HttpGet("pessoas")]
+        [HttpGet("obter-todos")]
         public async Task<IActionResult> ObterTodasPessoas()
         {
             

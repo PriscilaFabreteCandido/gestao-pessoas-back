@@ -17,7 +17,10 @@ namespace gestao_pessoas_back.Data
             {
                 entity.HasKey(a => a.Id);
                 entity.Property(a => a.Id).ValueGeneratedOnAdd();
-                entity.HasIndex(t => t.CPF).IsUnique();// // Configurar índice único para CPF
+                entity.HasIndex(t => t.CPF).IsUnique();// Configurar índice único para CPF
+                entity.Property(e => e.Sexo)
+                .IsRequired(false).HasConversion<string>();
+
 
             });
 
