@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG PROJECT_FOLDER=kovr_portal_sinistro_back
+ARG PROJECT_FOLDER=gestao-pessoas-back
 WORKDIR /src
 
 COPY ${PROJECT_FOLDER}/*.csproj ./
