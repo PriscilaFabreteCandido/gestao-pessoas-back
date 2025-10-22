@@ -27,6 +27,10 @@ namespace gestao_pessoas_back.Services
         {
             try
             {
+                if (request == null)
+                    throw new ArgumentNullException(nameof(request));
+
+
                 if (await _pessoaRepository.CpfExisteAsync(request.CPF))
                     throw new InvalidOperationException("Já existe uma pessoa cadastrada com este CPF");
 
@@ -42,8 +46,8 @@ namespace gestao_pessoas_back.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao criar pessoa");
-                throw new Exception($"Erro ao criar pessoa" );
+                _logger.LogError(ex, "Erro ao criar pessoa" );
+                throw new Exception(ex.Message);
             }
         }
 
