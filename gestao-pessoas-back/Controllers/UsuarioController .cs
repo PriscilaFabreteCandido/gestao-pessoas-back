@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace gestao_pessoas_back.Controllers
 {
     [ApiController]
-
+    [Authorize()]
     [Route("v1/[controller]")]
     public class UsuariosController : ControllerBase
     {
